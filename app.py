@@ -7,30 +7,29 @@ from config.settings import SERVER_URL, UPLOAD_FOLDER
 app = Flask(__name__, template_folder="templates", static_folder="static")
 CORS(app)
 
-# Diccionario para almacenar las capturas, organizado por usuario (o device_id)
+# Diccionario para almacenar capturas organizadas por usuario
 user_captures = {}
+
+# Diccionario para almacenar notificaciones asignadas a cada usuario
+notifications = {}
 
 @app.route("/upload", methods=["POST"])
 def upload_screenshot():
-    # Verificar que se envíe el archivo
     if "file" not in request.files:
         return jsonify({"error": "No se encontró el archivo"}), 400
 
     file = request.files["file"]
-    # Se espera que el cliente envíe el identificador en el campo "device_id"
+    # Se espera que el cliente envíe el identificador en "device_id"
     device_id = request.form.get("device_id", "unknown")
-    
-    # Crear una carpeta para este dispositivo/usuario si no existe
+
     device_folder = os.path.join(UPLOAD_FOLDER, device_id)
     os.makedirs(device_folder, exist_ok=True)
 
-    # Crear un nombre único usando la fecha y hora
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"screenshot_{timestamp}.png"
     file_path = os.path.join(device_folder, filename)
     file.save(file_path)
 
-    # Guardamos la ruta relativa en el diccionario
     relative_path = os.path.join(device_id, filename)
     if device_id not in user_captures:
         user_captures[device_id] = []
@@ -52,9 +51,32 @@ def view_file(filename):
 def user_page(username):
     if username not in user_captures:
         return f"Usuario {username} no encontrado", 404
-    # Renderiza la plantilla user.html pasando el usuario, las capturas y la URL del servidor.
     return render_template("user.html", user=username, captures=user_captures[username], server_url=SERVER_URL)
 
+# Nuevo endpoint para que el administrador envíe notificaciones
+@app.route("/send_notification", methods=["POST"])
+def send_notification():
+    # Recibimos los datos del formulario (o vía JSON)
+    user = request.form.get("user")
+    message = request.form.get("message")
+    if not user or not message:
+        return jsonify({"error": "Faltan datos: se requieren 'user' y 'message'"}), 400
+
+    notifications[user] = message
+    return jsonify({"message": f"Notificación enviada a {user}."}), 200
+
+# Nuevo endpoint para que el cliente (notifier) consulte la notificación asignada
+@app.route("/notifications", methods=["GET"])
+def get_notification():
+    user = request.args.get("user")
+    notif = notifications.get(user)
+    # Puedes decidir si una vez leída la notificación se borra o se mantiene
+    return jsonify({"notification": notif})
+
+# Ruta para mostrar el panel de administración (para enviar notificaciones)
+@app.route("/admin")
+def admin_panel():
+    return render_template("admin_panel.html")
+
 if __name__ == "__main__":
-    # Ejecuta la aplicación en todas las interfaces, puerto 5000 y modo debug activado para desarrollo.
     app.run(host="0.0.0.0", port=5000, debug=True)
