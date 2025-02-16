@@ -1,5 +1,5 @@
-flask
+Flask
 gunicorn
-flask-jwt-extended
-Flask-Cors==3.0.10
+Flask-Cors
 Flask-SQLAlchemy
+flask-jwt-extended
