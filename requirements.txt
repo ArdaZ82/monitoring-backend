@@ -3,3 +3,4 @@ gunicorn
 Flask-Cors
 Flask-SQLAlchemy
 flask-jwt-extended
+flask-login
