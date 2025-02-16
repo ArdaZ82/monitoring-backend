@@ -1,2 +1,4 @@
 flask
 gunicorn
+flask-jwt-extended
+Flask-Cors==3.0.10
