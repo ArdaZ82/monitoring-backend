@@ -7,3 +7,7 @@ wtforms[email]
 email-validator
 python-dotenv
 gunicorn
+flask_cors
+flask-migrate
+werkzeug.security
+
