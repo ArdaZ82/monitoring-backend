@@ -1,6 +1,9 @@
-Flask
-gunicorn
-Flask-Cors
-Flask-SQLAlchemy
-flask-jwt-extended
+flask
 flask-login
+flask-wtf
+flask-sqlalchemy
+wtforms
+wtforms[email]
+email-validator
+python-dotenv
+gunicorn
