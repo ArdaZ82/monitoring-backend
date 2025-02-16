@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Capturas de {{ user }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        h1 { text-align: center; }
+        .capture { margin: 10px; display: inline-block; }
+        .capture img { border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <h1>Capturas de {{ user }}</h1>
+    {% if captures %}
+        {% for image in captures %}
+            <div class="capture">
+                <img src="{{ server_url }}/view/{{ image }}" alt="Captura" width="300">
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No hay capturas disponibles para este usuario.</p>
+    {% endif %}
+</body>
+</html>

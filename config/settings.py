@@ -1,17 +1,16 @@
 import os
 
-# URL del servidor para pruebas locales o producción. 
-# En Render.com, por ejemplo, se usaría la URL pública asignada.
+# URL del servidor en producción (Render.com)
 SERVER_URL = "https://monitor-backend-wsot.onrender.com"
 
-# Nombre de usuario que identifica al dispositivo (para el cliente)
+# Nombre de usuario (si se usa en el cliente)
 USER_NAME = "Sebastian"
 
-# Intervalo de captura en segundos (para el cliente)
+# Intervalo de captura (usado en el cliente, por ejemplo)
 CAPTURE_INTERVAL = 10
 
-# Carpeta para almacenar capturas en el servidor.
-# Se crea en el directorio actual, en una carpeta llamada "capturas".
+# Carpeta para almacenar las capturas en el servidor.
+# Se creará en el directorio actual, en una carpeta llamada "capturas".
 UPLOAD_FOLDER = os.path.join(os.getcwd(), "capturas")
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
