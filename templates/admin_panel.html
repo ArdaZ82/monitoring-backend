@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
     <title>Panel de Administración</title>
 </head>
 <body>
-    <h1>Enviar Notificación</h1>
-    <form action="/send_notification" method="post">
-        <label for="user">Usuario:</label>
-        <input type="text" id="user" name="user" placeholder="Nombre del usuario" required>
-        <br><br>
-        <label for="message">Mensaje:</label>
-        <input type="text" id="message" name="message" placeholder="Tarea a asignar" required>
-        <br><br>
-        <button type="submit">Enviar Notificación</button>
-    </form>
+    <h2>Panel de Administración</h2>
+    <nav>
+        <a href="/captures">Capturas</a>
+        <a href="/tasks">Tareas</a>
+        <a href="/users">Usuarios Monitoreados</a>
+        <a href="/logout">Cerrar Sesión</a>
+    </nav>
 </body>
 </html>

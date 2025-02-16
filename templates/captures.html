@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Capturas</title>
+</head>
+<body>
+    <h2>Capturas de Usuarios</h2>
+    <ul>
+        {% for user, images in captures.items() %}
+            <li>{{ user }}
+                <ul>
+                    {% for img in images %}
+                        <li><img src="{{ server_url }}/view/{{ img }}" width="200"></li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="/admin">Volver</a>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuarios Monitoreados</title>
+</head>
+<body>
+    <h2>Usuarios Monitoreados</h2>
+    <ul>
+        {% for user in users %}
+            <li>{{ user }}</li>
+        {% endfor %}
+    </ul>
+    <a href="/admin">Volver</a>
+</body>
+</html>
